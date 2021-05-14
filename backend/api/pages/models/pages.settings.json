@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "pages",
+  "info": {
+    "name": "Pages",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "slug": {
+      "type": "uid"
+    },
+    "name": {
+      "type": "string"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "wip",
+        "published"
+      ],
+      "required": false,
+      "default": "wip"
+    },
+    "metadata": {
+      "type": "component",
+      "repeatable": false,
+      "component": "page.meta",
+      "required": true
+    },
+    "pageContent": {
+      "type": "dynamiczone",
+      "components": [
+        "page.meta"
+      ]
+    }
+  }
+}

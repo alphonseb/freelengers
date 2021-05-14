@@ -22,14 +22,15 @@ const MyApp = ({ Component, pageProps }) => {
   }
   const { metadata } = global;
 
+  console.log(global);
   return (
     <>
       {/* Favicon */}
-      <Head>
+      {/* <Head>
         <link rel="shortcut icon" href={getStrapiMedia(global.favicon.url)} />
-      </Head>
+      </Head> */}
       {/* Global site metadata */}
-      <DefaultSeo
+      {/* <DefaultSeo
         titleTemplate={`%s | ${global.metaTitleSuffix}`}
         title={"Page"}
         description={metadata.metaDescription}
@@ -46,11 +47,11 @@ const MyApp = ({ Component, pageProps }) => {
           cardType: metadata.twitterCardType,
           handle: metadata.twitterUsername,
         }}
-      />
+      /> */}
       {/* Display the content */}
-      <Layout global={global}>
+      {/* <Layout global={global}>
         <Component {...pageProps} />
-      </Layout>
+      </Layout> */}
     </>
   );
 };
