@@ -20,6 +20,7 @@ export async function fetchAPI(path, options = {}) {
   const response = await fetch(requestUrl, mergedOptions)
 
   if (!response.ok) {
+    console.log(requestUrl);
     console.error(response.statusText)
     throw new Error(`An error occured please try again`)
   }
