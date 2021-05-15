@@ -1,3 +1,5 @@
+import Cookie from 'js-cookie'
+
 export function getStrapiURL(path) {
   return `${
     process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://localhost:1337'
@@ -12,6 +14,11 @@ export async function fetchAPI(path, options = {}) {
       'Content-Type': 'application/json',
     },
   }
+  const token = Cookie.get('token')
+  
+  if (token) {
+    defaultOptions.headers = {...defaultOptions.headers, 'Authorization': `Bearer ${token}`}
+  }
   const mergedOptions = {
     ...defaultOptions,
     ...options,
@@ -20,6 +27,7 @@ export async function fetchAPI(path, options = {}) {
   const response = await fetch(requestUrl, mergedOptions)
 
   if (!response.ok) {
+    console.log(mergedOptions);
     console.log(requestUrl);
     console.error(response.statusText)
     throw new Error(`An error occured please try again`)

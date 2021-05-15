@@ -34,9 +34,10 @@ const MyApp = ({ Component, pageProps }) => {
 
     if (token) {
       // authenticate the token on the server and place set user object
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}users/me`, {
+      fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/users/me`, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${ token }`,
+          'Content-Type': 'application/json'
         },
       }).then(async (res) => {
         // if res comes back not valid, token is not valid
@@ -46,24 +47,24 @@ const MyApp = ({ Component, pageProps }) => {
           setUser(null);
           return null;
         }
-        const user = await res.json();
-        setUser(user);
+        const theUser = await res.json();
+        setUser(theUser);
       });
     }
-  });
+  }, []);
 
   const { metadata } = global;
   return (
     <AppContext.Provider
       value={{
-        user: user,
+        user,
         isAuthenticated: !!user,
-        setUser: setUser,
+        setUser,
       }}
     >
       {/* Favicon */}
       <Head>
-        <link rel="shortcut icon" href={getStrapiMedia(global.favicon.url)} />
+        {/* <link rel="shortcut icon" href={getStrapiMedia(global.favicon.url)} /> */}
       </Head>
       {/* Global site metadata */}
       <DefaultSeo

@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_sections_homes",
+  "info": {
+    "name": "Home",
+    "icon": "archive",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    }
+  }
+}

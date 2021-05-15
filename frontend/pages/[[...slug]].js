@@ -33,9 +33,10 @@ const DynamicPage = ({ sections, metadata, preview }) => {
 export async function getStaticPaths() {
   // Get all pages from Strapi
   const pages = await (await fetch(getStrapiURL("/pages"))).json();
+  console.log(pages);
   const paths = pages.map((page) => {
     // Decompose the slug that was saved in Strapi
-    const slugArray = page.slug.split("__");
+    const slugArray = page.slug ? page.slug.split("__") : [];
     return {
       params: { slug: slugArray },
     };
@@ -47,16 +48,17 @@ export async function getStaticProps({ params, preview = null }) {
   // Find the page data for the current slug
   let chainedSlugs;
   if (params == {} || !params.slug) {
-    // To get the homepage, find the only page where slug is an empty string
-    chainedSlugs = ``;
+    chainedSlugs = 'home';
   } else {
     // Otherwise find a page with a matching slug
     // Recompose the slug that was saved in Strapi
     chainedSlugs = params.slug.join("__");
   }
 
+  console.log({chainedSlugs});
   // Fetch pages. Include drafts if preview mode is on
   const pageData = await getPageData(chainedSlugs, preview);
+  console.log(pageData);
 
   if (pageData == null) {
     // Giving the page no props will trigger a 404 page

@@ -37,7 +37,8 @@
       "type": "dynamiczone",
       "components": [
         "sections.login",
-        "sections.register"
+        "sections.register",
+        "sections.home"
       ]
     }
   }
