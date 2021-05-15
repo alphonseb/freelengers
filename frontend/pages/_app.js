@@ -26,9 +26,9 @@ const MyApp = ({ Component, pageProps }) => {
   return (
     <>
       {/* Favicon */}
-      {/* <Head>
+      <Head>
         <link rel="shortcut icon" href={getStrapiMedia(global.favicon.url)} />
-      </Head> */}
+      </Head>
       {/* Global site metadata */}
       {/* <DefaultSeo
         titleTemplate={`%s | ${global.metaTitleSuffix}`}
@@ -49,9 +49,9 @@ const MyApp = ({ Component, pageProps }) => {
         }}
       /> */}
       {/* Display the content */}
-      {/* <Layout global={global}>
+      <Layout global={global}>
         <Component {...pageProps} />
-      </Layout> */}
+      </Layout>
     </>
   );
 };

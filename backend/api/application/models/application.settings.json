@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "applications",
+  "info": {
+    "name": "Application"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "project": {
+      "model": "project"
+    },
+    "recommends": {
+      "plugin": "users-permissions",
+      "collection": "user"
+    },
+    "Job": {
+      "type": "string"
+    },
+    "DailyRate": {
+      "type": "integer"
+    },
+    "DaysNumber": {
+      "type": "integer"
+    }
+  }
+}

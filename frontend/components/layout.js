@@ -14,17 +14,17 @@ const Layout = ({ children, global }) => {
     <div className="flex flex-col justify-between min-h-screen">
       {/* Aligned to the top */}
       <div className="flex-1">
-        {notificationBanner && bannerIsShown && (
+        {/* {notificationBanner && bannerIsShown && (
           <NotificationBanner
             data={notificationBanner}
             closeSelf={() => setBannerIsShown(false)}
           />
-        )}
-        <Navbar navbar={navbar} />
+        )} */}
+        {/* <Navbar navbar={navbar} /> */}
         <div>{children}</div>
       </div>
       {/* Aligned to the bottom */}
-      <Footer footer={footer} />
+      {/* <Footer footer={footer} /> */}
     </div>
   );
 };

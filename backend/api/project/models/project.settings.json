@@ -14,6 +14,13 @@
   "attributes": {
     "name": {
       "type": "string"
+    },
+    "Jobs": {
+      "type": "json"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
     }
   }
 }
