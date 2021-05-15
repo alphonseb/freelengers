@@ -1,14 +1,21 @@
+import { useState, useEffect } from "react";
+import Cookie from "js-cookie";
+import fetch from "isomorphic-fetch";
+import AppContext from "../context/AppContext";
+// import withData from "../lib/apollo";
+
 import App from "next/app";
 import Head from "next/head";
 import ErrorPage from "next/error";
 import { useRouter } from "next/router";
 import { DefaultSeo } from "next-seo";
-import { getStrapiMedia } from "utils/media";
-import { getStrapiURL, getGlobalData } from "utils/api";
+import { getGlobalData } from "utils/api";
 import Layout from "@/components/layout";
 import "@/styles/index.css";
 
 const MyApp = ({ Component, pageProps }) => {
+  const [user, setUser] = useState(null);
+
   // Prevent Next bug when it tries to render the [[...slug]] route
   const router = useRouter();
   if (router.asPath === "/[[...slug]]") {
@@ -20,39 +27,55 @@ const MyApp = ({ Component, pageProps }) => {
   if (global == null) {
     return <ErrorPage statusCode={404} />;
   }
-  const { metadata } = global;
 
-  console.log(global);
+  useEffect(() => {
+    // grab token value from cookie
+    const token = Cookie.get("token");
+
+    if (token) {
+      // authenticate the token on the server and place set user object
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}users/me`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then(async (res) => {
+        // if res comes back not valid, token is not valid
+        // delete the token and log the user out on client
+        if (!res.ok) {
+          Cookie.remove("token");
+          setUser(null);
+          return null;
+        }
+        const user = await res.json();
+        setUser(user);
+      });
+    }
+  });
+
+  const { metadata } = global;
   return (
-    <>
+    <AppContext.Provider
+      value={{
+        user: user,
+        isAuthenticated: !!user,
+        setUser: setUser,
+      }}
+    >
       {/* Favicon */}
       {/* <Head>
         <link rel="shortcut icon" href={getStrapiMedia(global.favicon.url)} />
       </Head> */}
       {/* Global site metadata */}
-      {/* <DefaultSeo
+      <DefaultSeo
         titleTemplate={`%s | ${global.metaTitleSuffix}`}
         title={"Page"}
         description={metadata.metaDescription}
-        openGraph={{
-          images: Object.values(metadata.shareImage.formats).map((image) => {
-            return {
-              url: getStrapiMedia(image.url),
-              width: image.width,
-              height: image.height,
-            };
-          }),
-        }}
-        twitter={{
-          cardType: metadata.twitterCardType,
-          handle: metadata.twitterUsername,
-        }}
-      /> */}
+      />
       {/* Display the content */}
-      {/* <Layout global={global}>
+      <Layout global={global}>
         <Component {...pageProps} />
-      </Layout> */}
-    </>
+      </Layout>
+    </AppContext.Provider>
   );
 };
 

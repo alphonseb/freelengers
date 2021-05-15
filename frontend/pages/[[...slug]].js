@@ -65,7 +65,6 @@ export async function getStaticProps({ params, preview = null }) {
 
   // We have the required page data, pass it to the page component
   const { pageContent, metadata } = pageData;
-  console.log(metadata);
   return {
     props: {
       preview,

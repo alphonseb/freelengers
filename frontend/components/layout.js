@@ -3,28 +3,52 @@ import ButtonLink from "./elements/button-link";
 import Navbar from "./elements/navbar";
 import Footer from "./elements/footer";
 import NotificationBanner from "./elements/notification-banner";
-import { useState } from "react";
+import { useState, useContext } from "react";
+
+import { logout } from "../lib/auth";
+import AppContext from "../context/AppContext";
 
 const Layout = ({ children, global }) => {
-  const { navbar, footer, notificationBanner } = global;
+  // const { navbar, footer, notificationBanner } = global;
 
-  const [bannerIsShown, setBannerIsShown] = useState(true);
+  const { user, setUser } = useContext(AppContext);
+  console.log(user);
 
   return (
-    <div className="flex flex-col justify-between min-h-screen">
+    <div>
       {/* Aligned to the top */}
-      <div className="flex-1">
-        {notificationBanner && bannerIsShown && (
-          <NotificationBanner
-            data={notificationBanner}
-            closeSelf={() => setBannerIsShown(false)}
-          />
+      {/* <Navbar navbar={navbar} /> */}
+      <div>{children}</div>
+      <div>
+        {user ? (
+          <h5>{user.username}</h5>
+        ) : (
+          <Link href='/register'>
+            <a className='nav-link'> Sign up</a>
+          </Link>
         )}
-        <Navbar navbar={navbar} />
-        <div>{children}</div>
+      </div>
+      <div>
+        {user ? (
+          <Link href='/'>
+            <a
+              className=''
+              onClick={() => {
+                logout();
+                setUser(null);
+              }}
+            >
+              Logout
+            </a>
+          </Link>
+        ) : (
+          <Link href='/login'>
+            <a className='nav-link'>Sign in</a>
+          </Link>
+        )}
       </div>
       {/* Aligned to the bottom */}
-      <Footer footer={footer} />
+      {/* <Footer footer={footer} /> */}
     </div>
   );
 };
