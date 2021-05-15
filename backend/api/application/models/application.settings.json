@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "applications",
   "info": {
-    "name": "Application"
+    "name": "Application",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -13,7 +14,8 @@
   "attributes": {
     "user": {
       "plugin": "users-permissions",
-      "model": "user"
+      "model": "user",
+      "via": "applications"
     },
     "project": {
       "model": "project"
@@ -22,13 +24,13 @@
       "plugin": "users-permissions",
       "collection": "user"
     },
-    "Job": {
+    "job": {
       "type": "string"
     },
-    "DailyRate": {
+    "dailyRate": {
       "type": "integer"
     },
-    "DaysNumber": {
+    "daysNumber": {
       "type": "integer"
     }
   }

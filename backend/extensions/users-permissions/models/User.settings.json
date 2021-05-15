@@ -62,6 +62,10 @@
     "friends": {
       "plugin": "users-permissions",
       "collection": "user"
+    },
+    "applications": {
+      "via": "user",
+      "collection": "application"
     }
   }
 }
