@@ -62,9 +62,9 @@ const MyApp = ({ Component, pageProps }) => {
       }}
     >
       {/* Favicon */}
-      {/* <Head>
+      <Head>
         <link rel="shortcut icon" href={getStrapiMedia(global.favicon.url)} />
-      </Head> */}
+      </Head>
       {/* Global site metadata */}
       <DefaultSeo
         titleTemplate={`%s | ${global.metaTitleSuffix}`}

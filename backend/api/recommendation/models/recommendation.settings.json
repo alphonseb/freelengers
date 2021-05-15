@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "recommendations",
+  "info": {
+    "name": "Recommendation"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "recommender": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "recommendee": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "project": {
+      "model": "project"
+    },
+    "Job": {
+      "type": "string"
+    }
+  }
+}

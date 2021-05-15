@@ -25,6 +25,14 @@
       }
     },
     {
+      "method": "GET",
+      "path": "/projects/slug/:slug",
+      "handler": "project.findBySlug",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "POST",
       "path": "/projects",
       "handler": "project.create",
