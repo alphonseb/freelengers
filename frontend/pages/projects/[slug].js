@@ -5,17 +5,40 @@ import Button from 'components/elements/button'
 import AppContext from 'context/AppContext'
 
 export default function SingleProject () {
+    const { user } = useContext(AppContext)
     const router = useRouter()
     const { slug } = router.query
+    const [isLoading, setIsLoading] = useState(true)
     const [project, setProject] = useState({})
     useEffect(() => {
         async function fetchProject () {
-            setProject(await fetchAPI(`/projects/slug/${slug}`))
+            const project = await fetchAPI(`/projects/slug/${ slug }`)
+            setProject(project)
+            console.log(user, project);
+            const application = await fetchAPI(`/applications/project/${ project.id }/user/${ user.id }`)
+            const newRecommendations = {}
+            if (application) {
+                setApplication(application)
+                setHasApplied(true)
+                newRecommendations[application.job] =  user
+            }
+            
+            const recommendations = await fetchAPI(`/recommendations/recommender/${ user.id }/project/${ project.id }`)
+            if (recommendations.length) {
+                recommendations.forEach(recommendation => {
+                    newRecommendations[recommendation.job] = recommendation.recommendee
+                })
+            }
+            setJobsRecommendations(newRecommendations)
+            setIsLoading(false)
         }
-        fetchProject()
-    }, [])
+        if (user) {
+            
+            fetchProject()
+        }
+    }, [user])
     
-    const { user } = useContext(AppContext)
+    
     
     const [selectedJob, setSelectedJob] = useState('')
     const [dailyRate, setDailyRate] = useState(0)
@@ -71,6 +94,9 @@ export default function SingleProject () {
                 { project.jobs.map((job, i) => (<li key={ i }>{ job }</li>))}
             </ul>
             {
+                isLoading ?
+                    '<div>Loading...</div>'
+                    :
                 !hasApplied ? (        
                     <form onSubmit={(e) => {e.preventDefault()}}>
                         <select id="" onChange={(e) => {setSelectedJob(e.target.value)}} value={selectedJob}>

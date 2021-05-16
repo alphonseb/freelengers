@@ -25,6 +25,14 @@
       }
     },
     {
+      "method": "GET",
+      "path": "/applications/project/:projectId/user/:userId",
+      "handler": "application.findOneByProjectAndUser",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "POST",
       "path": "/applications",
       "handler": "application.create",

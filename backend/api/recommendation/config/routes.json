@@ -10,6 +10,14 @@
     },
     {
       "method": "GET",
+      "path": "/recommendations/recommender/:userId/project/:projectId",
+      "handler": "recommendation.findByRecommenderAndProject",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/recommendations/count",
       "handler": "recommendation.count",
       "config": {
