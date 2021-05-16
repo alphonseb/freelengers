@@ -68,11 +68,11 @@ const Register = ({ data }) => {
               registerUser(newUser.username, newUser.email, newUser.password)
                 .then((res) => {
                   // set authed user in global context object
-                  appContext.setUser(res.newUser.user);
+                  appContext.setUser(res.newUser);
                   setLoading(false);
                 })
                 .catch((error) => {
-                  setError(error.response.user);
+                  setError(error);
                   setLoading(false);
                 });
             }}

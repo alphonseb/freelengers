@@ -12,6 +12,7 @@ const Layout = ({ children, global }) => {
   // const { navbar, footer, notificationBanner } = global;
 
   const { user, setUser } = useContext(AppContext);
+  console.log(user);
 
   return (
     <div>

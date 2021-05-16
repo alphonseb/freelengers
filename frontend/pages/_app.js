@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import Cookie from "js-cookie";
 import fetch from "isomorphic-fetch";
 import AppContext from "../context/AppContext";
