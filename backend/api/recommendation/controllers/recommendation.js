@@ -14,5 +14,12 @@ module.exports = {
 
         const entity = await strapi.services.recommendation.find({ project: projectId, recommender: userId });
         return sanitizeEntity(entity, { model: strapi.models.recommendation });
+    },
+    
+    async findByRecommendee (ctx) {
+        const { id } = ctx.params;
+
+        const entity = await strapi.services.recommendation.find({ recommendee: id });
+        return sanitizeEntity(entity, { model: strapi.models.recommendation });
     }
 };

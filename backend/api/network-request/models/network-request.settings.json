@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "network_requests",
+  "info": {
+    "name": "Network Request"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "requester": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "requestee": {
+      "plugin": "users-permissions",
+      "model": "user"
+    }
+  }
+}

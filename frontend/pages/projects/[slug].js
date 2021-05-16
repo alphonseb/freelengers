@@ -95,7 +95,7 @@ export default function SingleProject () {
             </ul>
             {
                 isLoading ?
-                    '<div>Loading...</div>'
+                    (<div>Loading...</div>)
                     :
                 !hasApplied ? (        
                     <form onSubmit={(e) => {e.preventDefault()}}>

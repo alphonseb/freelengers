@@ -1,0 +1,68 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/network-requests",
+      "handler": "network-request.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/network-requests/received",
+      "handler": "network-request.received",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/network-requests/sent",
+      "handler": "network-request.sent",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/network-requests/count",
+      "handler": "network-request.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/network-requests/:id",
+      "handler": "network-request.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/network-requests",
+      "handler": "network-request.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/network-requests/:id",
+      "handler": "network-request.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/network-requests/:id",
+      "handler": "network-request.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

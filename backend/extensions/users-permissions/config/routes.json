@@ -1,0 +1,31 @@
+{
+    "routes": [
+        {
+            "method": "GET",
+            "path": "/users/slug/:slug",
+            "handler": "UsersPermissions.findOneBySlug",
+            "config": {
+                "policies": [],
+                "prefix": ""
+            }
+        },
+        {
+            "method": "PUT",
+            "path": "/user/add-friend/:friendId",
+            "handler": "User.addFriend",
+            "config": {
+                "policies": [],
+                "prefix": ""
+            }
+        },
+        {
+            "method": "DELETE",
+            "path": "/user/deny-friend/:friendId",
+            "handler": "User.denyFriend",
+            "config": {
+                "policies": [],
+                "prefix": ""
+            }
+        }
+    ]
+}

@@ -66,6 +66,12 @@
     "applications": {
       "via": "user",
       "collection": "application"
+    },
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
     }
   }
 }
