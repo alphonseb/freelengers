@@ -35,7 +35,7 @@ const Layout = ({ children, global }) => {
             <a
               className=''
               onClick={() => {
-                logout();
+                logout()
                 setUser(null);
               }}
             >

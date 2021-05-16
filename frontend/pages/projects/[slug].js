@@ -27,7 +27,7 @@ export default function SingleProject () {
         console.log(createdApplication);
     }
     
-    return project.name ? (
+    return (project.name && user) ? (
         <>
             <h1>{ project.name }</h1>
             <h2>Jobs :</h2>
