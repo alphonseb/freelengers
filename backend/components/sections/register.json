@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_sections_registers",
+  "info": {
+    "name": "Register",
+    "icon": "user-check"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    }
+  }
+}

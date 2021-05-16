@@ -36,7 +36,8 @@
     "pageContent": {
       "type": "dynamiczone",
       "components": [
-        "page.meta"
+        "sections.login",
+        "sections.register"
       ]
     }
   }

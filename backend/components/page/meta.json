@@ -2,12 +2,16 @@
   "collectionName": "components_page_metas",
   "info": {
     "name": "Meta",
-    "icon": "align-justify"
+    "icon": "align-justify",
+    "description": ""
   },
   "options": {},
   "attributes": {
     "metaTitle": {
       "type": "string"
+    },
+    "metaDescription": {
+      "type": "richtext"
     }
   }
 }
