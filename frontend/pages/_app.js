@@ -11,18 +11,18 @@ import { useRouter } from "next/router";
 import { DefaultSeo } from "next-seo";
 import { fetchAPI, getGlobalData } from "utils/api";
 import Layout from "@/components/layout";
-import "@/styles/index.css";
+import "@/styles/index.scss";
 
 const MyApp = ({ Component, pageProps }) => {
   const [user, setUser] = useState(null);
-  
+
 
   useEffect(() => {
     // grab token value from cookie
     async function getUser () {
-      
+
       const token = Cookie.get("token");
-  
+
       if (token) {
         const user = await fetchAPI('/users/me')
         // authenticate the token on the server and place set user object
