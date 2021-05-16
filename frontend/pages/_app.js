@@ -9,12 +9,33 @@ import Head from "next/head";
 import ErrorPage from "next/error";
 import { useRouter } from "next/router";
 import { DefaultSeo } from "next-seo";
-import { getGlobalData } from "utils/api";
+import { fetchAPI, getGlobalData } from "utils/api";
 import Layout from "@/components/layout";
 import "@/styles/index.css";
 
 const MyApp = ({ Component, pageProps }) => {
   const [user, setUser] = useState(null);
+  
+
+  useEffect(() => {
+    // grab token value from cookie
+    async function getUser () {
+      
+      const token = Cookie.get("token");
+  
+      if (token) {
+        const user = await fetchAPI('/users/me')
+        // authenticate the token on the server and place set user object
+        if (!user) {
+          Cookie.remove("token");
+          setUser(null);
+        } else {
+          setUser(user)
+        }
+      }
+    }
+    getUser()
+  }, []);
 
   // Prevent Next bug when it tries to render the [[...slug]] route
   const router = useRouter();
@@ -27,31 +48,6 @@ const MyApp = ({ Component, pageProps }) => {
   if (global == null) {
     return <ErrorPage statusCode={404} />;
   }
-
-  useEffect(() => {
-    // grab token value from cookie
-    const token = Cookie.get("token");
-
-    if (token) {
-      // authenticate the token on the server and place set user object
-      fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/users/me`, {
-        headers: {
-          Authorization: `Bearer ${ token }`,
-          'Content-Type': 'application/json'
-        },
-      }).then(async (res) => {
-        // if res comes back not valid, token is not valid
-        // delete the token and log the user out on client
-        if (!res.ok) {
-          Cookie.remove("token");
-          setUser(null);
-          return null;
-        }
-        const theUser = await res.json();
-        setUser(theUser);
-      });
-    }
-  }, []);
 
   const { metadata } = global;
   return (

@@ -4,6 +4,7 @@ import Navbar from "./elements/navbar";
 import Footer from "./elements/footer";
 import NotificationBanner from "./elements/notification-banner";
 import { useState, useContext } from "react";
+import Router from 'next/router'
 
 import { logout } from "../lib/auth";
 import AppContext from "../context/AppContext";

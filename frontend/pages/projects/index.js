@@ -20,12 +20,14 @@ export default function Projects () {
         , [])
     
     return (
-        <ul>
-            {projects.length && 
-                projects.map(project => <li key={project.id}>
-                    <Link href={`/projects/${project.slug}`}><a>{project.name}</a></Link>
-                </li>)
-            }
-        </ul>
+        projects.length ? (
+                <ul>
+                {
+                    projects.map(project => <li key={project.id}>
+                        <Link href={`/projects/${project.slug}`}><a>{project.name}</a></Link>
+                    </li>)
+                 }
+                </ul>
+            ) : <div>Loading...</div>
     )
 }

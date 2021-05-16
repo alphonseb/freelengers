@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 
 import { login } from "../../lib/auth";
-import AppContext from "../../context/AppContext";
+import AppContext from "context/AppContext";
 
 const Login = ({ data }) => {
   const [user, updateUser] = useState({ identifier: "", password: "" });
@@ -73,7 +73,7 @@ const Login = ({ data }) => {
                 .then((res) => {
                   setLoading(false);
                   // set authed User in global context to update header/app state
-                  appContext.setUser(res.user);
+                  appContext.setUser(res.data.user);
                 })
                 .catch((error) => {
                   setError(error.response.user);
