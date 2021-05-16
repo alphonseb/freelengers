@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "recommendations",
   "info": {
-    "name": "Recommendation"
+    "name": "Recommendation",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -22,7 +23,7 @@
     "project": {
       "model": "project"
     },
-    "Job": {
+    "job": {
       "type": "string"
     }
   }
