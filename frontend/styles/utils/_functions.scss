@@ -1,0 +1,22 @@
+/**
+* Functions
+*/
+
+// converting px to rem
+
+@function px-to-rem($value) {
+  @return getEmValue($value) * 1rem;
+}
+
+@function pix-to-rem($value) {
+  @return (setUnit($value) / 16px) * 1rem;
+}
+
+// get Rem size
+@function getEmValue($value) {
+  @return setUnit($value) / 10px;
+}
+
+@function setUnit($value) {
+  @return if(unitless($value), $value * 1px, $value);
+}

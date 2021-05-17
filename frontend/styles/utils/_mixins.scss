@@ -1,0 +1,7 @@
+/**
+ * Mixins
+ */
+
+@mixin font-size($size) {
+  font-size: pix-to-rem($size) !important;
+}
