@@ -15,9 +15,6 @@
     "name": {
       "type": "string"
     },
-    "jobs": {
-      "type": "json"
-    },
     "slug": {
       "type": "uid",
       "targetField": "name"
@@ -25,6 +22,9 @@
     "applicationsOver": {
       "type": "boolean",
       "default": false
+    },
+    "jobs": {
+      "collection": "job"
     }
   }
 }

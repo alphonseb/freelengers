@@ -20,13 +20,13 @@ export default function SingleProject () {
             if (application) {
                 setApplication(application)
                 setHasApplied(true)
-                newRecommendations[application.job] =  user
+                newRecommendations[application.job.name] =  user
             }
             
             const recommendations = await fetchAPI(`/recommendations/recommender/${ user.id }/project/${ project.id }`)
             if (recommendations.length) {
                 recommendations.forEach(recommendation => {
-                    newRecommendations[recommendation.job] = recommendation.recommendee
+                    newRecommendations[recommendation.job.name] = recommendation.recommendee
                 })
             }
             setJobsRecommendations(newRecommendations)
@@ -58,11 +58,11 @@ export default function SingleProject () {
         const createdApplication = await fetchAPI('/applications', { method: 'POST', body: JSON.stringify({job: selectedJob, dailyRate, daysNumber, project: project.id, user: user.id})})
         setHasApplied(true)
         setApplication(createdApplication)
-        setJobsRecommendations({...jobsRecommendations, [createdApplication.job]: user})
+        setJobsRecommendations({...jobsRecommendations, [createdApplication.job.name]: user})
     }
     
     const startRecommendation = (job) => {
-        setRecommendingFor(job)
+        setRecommendingFor(job.id)
         setShowNetwork(true)
     }
     
@@ -79,7 +79,7 @@ export default function SingleProject () {
         }
         
         const recommendation = await fetchAPI('/recommendations', { method: 'POST', body: JSON.stringify(recommendationBody) })
-        setJobsRecommendations({ ...jobsRecommendations, [recommendation.job]: recommendation.recommendee })
+        setJobsRecommendations({ ...jobsRecommendations, [recommendation.job.name]: recommendation.recommendee })
         
         const updatedApplication = await fetchAPI(`/applications/${ application.id }`, { method: 'PUT', body: JSON.stringify(applicationBody) })
         setApplication(updatedApplication)
@@ -91,7 +91,7 @@ export default function SingleProject () {
             <h1>{ project.name }</h1>
             <h2>Jobs :</h2>
             <ul>
-                { project.jobs.map((job, i) => (<li key={ i }>{ job }</li>))}
+                { project.jobs.map(job => (<li key={ job.id }>{ job.name }</li>))}
             </ul>
             {
                 isLoading ?
@@ -100,9 +100,9 @@ export default function SingleProject () {
                 !hasApplied ? (        
                     <form onSubmit={(e) => {e.preventDefault()}}>
                         <select id="" onChange={(e) => {setSelectedJob(e.target.value)}} value={selectedJob}>
-                            <option value>Choisir</option>
+                            <option value="">Choisir</option>
                             {
-                                project.jobs.map((job, i) => (<option key={i} value={job}>{ job }</option>))
+                                project.jobs.map(job => (<option key={job.id} value={job.id}>{ job.name }</option>))
                             }
                         </select>
                         <input type="number" name="" id="" value={ dailyRate } onChange={ (e) => {setDailyRate(e.target.value)} }/>
@@ -114,10 +114,10 @@ export default function SingleProject () {
                         <h2>L'équipe</h2>
                         <ul>
                             {
-                                project.jobs.map((job, i) => (
-                                    <li key={ i }>
-                                        <span>{ job }</span> - <span>{ jobsRecommendations[job]?.username }</span>
-                                        {jobsRecommendations[job] ? '' : (<Button handleClick={() => startRecommendation(job)} button={{text: "I know someone"}} />)}
+                                project.jobs.map(job => (
+                                    <li key={ job.id }>
+                                        <span>{ job.name }</span> - <span>{ jobsRecommendations[job.name]?.username }</span>
+                                        {jobsRecommendations[job.name] ? '' : (<Button handleClick={() => startRecommendation(job)} button={{text: "I know someone"}} />)}
                                     </li>
                                 ))
                             }

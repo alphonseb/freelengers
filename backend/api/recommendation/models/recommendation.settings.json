@@ -24,7 +24,7 @@
       "model": "project"
     },
     "job": {
-      "type": "string"
+      "model": "job"
     }
   }
 }

@@ -4,8 +4,9 @@ const { sanitizeEntity } = require('strapi-utils');
 module.exports = {
     async findOneBySlug (ctx, next) {
         const { slug } = ctx.params;
+        
         // await next();
-        const entity = await strapi.query('user', 'users-permissions').findOne({ username: slug });
+        const entity = await strapi.query('user', 'users-permissions').findOne({ username: decodeURIComponent(slug) });
         
         const { id, username, firstName, lastName } = entity
         if (id === ctx.state.user.id) {

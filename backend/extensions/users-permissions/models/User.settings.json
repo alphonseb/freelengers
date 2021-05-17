@@ -72,6 +72,15 @@
     },
     "lastName": {
       "type": "string"
+    },
+    "job_1": {
+      "model": "job"
+    },
+    "job_2": {
+      "model": "job"
+    },
+    "job_3": {
+      "model": "job"
     }
   }
 }

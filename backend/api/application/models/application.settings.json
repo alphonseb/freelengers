@@ -24,14 +24,14 @@
       "plugin": "users-permissions",
       "collection": "user"
     },
-    "job": {
-      "type": "string"
-    },
     "dailyRate": {
       "type": "integer"
     },
     "daysNumber": {
       "type": "integer"
+    },
+    "job": {
+      "model": "job"
     }
   }
 }

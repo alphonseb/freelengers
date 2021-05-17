@@ -26,7 +26,7 @@ export default function Recommendations () {
                     <ul>
                         {
                             recommendations.map(recommendation => (
-                                <li key={ recommendation.id }>Recommended by { recommendation.recommender.username } for the {recommendation.job} job - <Link href={`/projects/${recommendation.project.slug}`}><a>{ recommendation.project.name }</a></Link></li>
+                                <li key={ recommendation.id }>Recommended by { recommendation.recommender.username } for the {recommendation.job.name} job - <Link href={`/projects/${recommendation.project.slug}`}><a>{ recommendation.project.name }</a></Link></li>
                             ))
                         }
                     </ul>

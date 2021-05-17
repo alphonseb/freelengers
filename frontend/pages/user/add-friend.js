@@ -12,7 +12,7 @@ export default function AddFriend() {
     const [friend, setFriend] = useState(null)
     
     const handleSearch = async () => {
-        const friend = await fetchAPI(`/users/slug/${ searchedUsername }`)
+        const friend = await fetchAPI(`/users/slug/${ encodeURIComponent(searchedUsername) }`)
         setFriend(friend)
     }
     

@@ -10,9 +10,10 @@ const Button = ({
   handleClick,
   loading = false,
   type,
+  ...props
 }) => {
   return (
-    <button link={button} onClick={handleClick} type={type}>
+    <button link={ button } onClick={ handleClick } type={ type } { ...props }>
       <div
         className={classNames(
           // Common classes
