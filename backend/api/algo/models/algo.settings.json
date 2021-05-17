@@ -1,0 +1,28 @@
+{
+  "kind": "singleType",
+  "collectionName": "algos",
+  "info": {
+    "name": "Algo",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "chemistryCoeff": {
+      "type": "decimal"
+    },
+    "jobCoeff": {
+      "type": "decimal"
+    },
+    "clientRatingCoeff": {
+      "type": "decimal"
+    },
+    "freelanceRatingCoeff": {
+      "type": "decimal"
+    }
+  }
+}

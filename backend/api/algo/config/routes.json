@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/algo",
+      "handler": "algo.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/algo",
+      "handler": "algo.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/algo",
+      "handler": "algo.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

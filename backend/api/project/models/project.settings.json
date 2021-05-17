@@ -25,6 +25,9 @@
     },
     "jobs": {
       "collection": "job"
+    },
+    "selectedTeam": {
+      "model": "team"
     }
   }
 }

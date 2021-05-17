@@ -12,24 +12,26 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "users": {
-      "plugin": "users-permissions",
-      "collection": "user"
-    },
     "project": {
       "model": "project"
     },
-    "FullScore": {
+    "fullScore": {
       "type": "decimal"
     },
-    "RatingScore": {
+    "clientRatingScore": {
       "type": "decimal"
     },
-    "ChemistryScore": {
+    "chemistryScore": {
       "type": "decimal"
     },
-    "DomainScore": {
+    "jobScore": {
       "type": "decimal"
+    },
+    "freelanceRatingScore": {
+      "type": "decimal"
+    },
+    "applications": {
+      "collection": "application"
     }
   }
 }

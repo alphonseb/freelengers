@@ -81,6 +81,31 @@
     },
     "job_3": {
       "model": "job"
+    },
+    "freelanceRating": {
+      "type": "decimal",
+      "default": 0
+    },
+    "freelanceRatingNumber": {
+      "type": "integer",
+      "default": 0
+    },
+    "clientRating": {
+      "type": "decimal",
+      "default": 0
+    },
+    "clientRatingNumber": {
+      "type": "integer",
+      "default": 0
+    },
+    "appliedProjects": {
+      "collection": "project"
+    },
+    "launchedProjects": {
+      "collection": "project"
+    },
+    "oldProjects": {
+      "collection": "project"
     }
   }
 }
