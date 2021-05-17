@@ -1,0 +1,67 @@
+.input-container {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  padding: 8px;
+  margin-bottom: 24px;
+  width: 400px;
+  input[type="text"],
+  input[type="password"],
+  input[type="email"] {
+    @include typography("nunito-sans", 20px);
+    color: $neutral-1;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px $neutral-4 solid;
+    margin: 8px 0;
+    padding: 12px 0;
+    outline: none;
+    &::placeholder {
+      @include typography("nunito-sans-italic", 20px);
+      color: $neutral-2;
+    }
+    &:focus {
+      border-bottom: 2px $neutral-3 solid;
+    }
+  }
+  input[type="submit"] {
+    @include typography("nunito-sans-bold", 18px);
+    background-color: $primary-1;
+    color: $white;
+    padding: 16px 32px;
+    border: none;
+    border-radius: 80px;
+    text-align: left;
+    cursor: pointer;
+    + svg {
+      position: absolute;
+      right: 32px;
+      top: 22px;
+      path {
+        stroke: white;
+      }
+    }
+  }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-animation: autofill 0s forwards;
+  animation: autofill 0s forwards;
+}
+
+@keyframes autofill {
+  100% {
+    background: transparent;
+    color: inherit;
+  }
+}
+
+@-webkit-keyframes autofill {
+  100% {
+    background: transparent;
+    color: inherit;
+  }
+}

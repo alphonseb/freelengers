@@ -22,7 +22,7 @@ const Layout = ({ children, global }) => {
       <div>{children}</div>
       <div>
         {user ? (
-          <h5>{user.username}</h5>
+          <h1>{user.username}</h1>
         ) : (
           <Link href='/register'>
             <a className='nav-link'> Sign up</a>
