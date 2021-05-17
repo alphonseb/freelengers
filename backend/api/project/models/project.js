@@ -5,4 +5,12 @@
  * to customize this model
  */
 
-module.exports = {};
+module.exports = {
+    lifecycles: {
+        async afterUpdate (data) {
+            if (data.applicationsOver) {
+                console.log('create Teams');
+            }
+        }
+    }
+};

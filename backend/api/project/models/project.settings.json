@@ -21,6 +21,10 @@
     "slug": {
       "type": "uid",
       "targetField": "name"
+    },
+    "applicationsOver": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
