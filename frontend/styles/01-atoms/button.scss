@@ -40,8 +40,11 @@ button {
       position: absolute;
       right: 24px;
       top: 19px;
+      &.plus {
+        top: 14px;
+      }
       path {
-        stroke: $neutral-4;
+        stroke: $neutral-3;
       }
     }
   }

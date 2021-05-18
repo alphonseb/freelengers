@@ -8,6 +8,7 @@ import ActiveLink from "../01-atoms/ActiveLink";
 
 import ArrowRight from "../../src/assets/icons/arrow-right.svg";
 import Delete from "../../src/assets/icons/delete.svg";
+import Plus from "../../src/assets/icons/plus.svg";
 
 const Register = ({ data }) => {
   const [newUser, setNewUser] = useState({
@@ -258,7 +259,7 @@ const Register = ({ data }) => {
                   onChange={(e) => {
                     setSearchedJob(e.target.value);
                   }}
-                  placeholder='Rechercher une profession'
+                  placeholder='Rechercher une profession (3 obligatoires)'
                 />
               </div>
               <ul>
@@ -288,6 +289,7 @@ const Register = ({ data }) => {
                           }}
                         >
                           {job.name}
+                          <Plus className='plus' />
                         </button>
                       </li>
                     ))
@@ -295,8 +297,8 @@ const Register = ({ data }) => {
                   <>
                     {searchedJob ? (
                       <li>
-                        <span>{searchedJob}</span>
                         <button
+                          className='btn-secondary'
                           disabled={
                             selectedJobs.length === 3 ||
                             selectedJobs.find(
@@ -305,7 +307,8 @@ const Register = ({ data }) => {
                           }
                           onClick={selectJob}
                         >
-                          Sélectionner
+                          {searchedJob}
+                          <Plus className='plus' />
                         </button>
                       </li>
                     ) : (
