@@ -7,6 +7,7 @@ h1 {
   @include font-size(40px);
   line-height: 120%;
   color: $neutral-1;
+  padding: 16px 0;
 }
 h2 {
   font-family: "monarcha-bold";
@@ -43,6 +44,9 @@ h3 {
   @include paragraph("nunito-sans");
 }
 
+.accent {
+  @include paragraph("nunito-sans-bold")
+}
 
 @mixin typography($font, $size) {
   font-family: $font;

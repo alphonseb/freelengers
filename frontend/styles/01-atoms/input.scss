@@ -4,7 +4,6 @@
   flex-direction: column;
   padding: 8px;
   margin-bottom: 24px;
-  width: 400px;
   input[type="text"],
   input[type="password"],
   input[type="email"] {
@@ -41,6 +40,14 @@
         stroke: white;
       }
     }
+  }
+}
+
+.input-container-checkbox {
+  display: flex;
+  p {
+    margin-left: 16px;
+    line-height: 160%;
   }
 }
 
