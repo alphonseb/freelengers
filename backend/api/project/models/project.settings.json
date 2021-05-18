@@ -28,6 +28,18 @@
     },
     "selectedTeam": {
       "model": "team"
+    },
+    "company": {
+      "model": "company"
+    },
+    "description": {
+      "type": "text"
+    },
+    "tags": {
+      "type": "json"
+    },
+    "shortDescription": {
+      "type": "text"
     }
   }
 }
