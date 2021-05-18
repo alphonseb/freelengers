@@ -4,10 +4,10 @@
   flex-direction: column;
   padding: 8px;
   margin-bottom: 24px;
-  width: 400px;
   input[type="text"],
   input[type="password"],
-  input[type="email"] {
+  input[type="email"],
+  input[type="search"] {
     @include typography("nunito-sans", 20px);
     color: $neutral-1;
     background-color: transparent;
@@ -23,6 +23,9 @@
     &:focus {
       border-bottom: 2px $neutral-3 solid;
     }
+  }
+  input[type="search"] {
+    margin-bottom: 0;
   }
   input[type="submit"] {
     @include typography("nunito-sans-bold", 18px);
@@ -41,6 +44,14 @@
         stroke: white;
       }
     }
+  }
+}
+
+.input-container-checkbox {
+  display: flex;
+  p {
+    margin-left: 16px;
+    line-height: 160%;
   }
 }
 
