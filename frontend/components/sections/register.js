@@ -26,7 +26,7 @@ const Register = ({ data }) => {
 
   const [selectedJobs, setSelectedJobs] = useState([]);
 
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(1);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({});

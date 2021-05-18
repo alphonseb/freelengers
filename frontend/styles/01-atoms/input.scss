@@ -27,7 +27,7 @@
   input[type="search"] {
     margin-bottom: 0;
   }
-  input[type="submit"] {
+  input[type="submit"], button {
     @include typography("nunito-sans-bold", 18px);
     background-color: $primary-1;
     color: $white;

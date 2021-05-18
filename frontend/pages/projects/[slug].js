@@ -53,6 +53,8 @@ export default function SingleProject () {
     const [recommendingFor, setRecommendingFor] = useState('')
     const [selectedFriendId, setSelectedFriendId] = useState('')
     
+    const [showApplication, setShowApplication] = useState(false)
+    
     const apply = async () => {
         console.log(selectedJob, dailyRate, daysNumber);
         const createdApplication = await fetchAPI('/applications', { method: 'POST', body: JSON.stringify({job: selectedJob, dailyRate, daysNumber, project: project.id, user: user.id})})
@@ -86,58 +88,105 @@ export default function SingleProject () {
         setShowNetwork(false)
     }
     
+    const showApplicationProcess = () => {
+        setShowApplication(true)
+    }
+    
     return (project.name && user) ? (
-        <>
+        <div style={{paddingTop: 48}}>
             <h1>{ project.name }</h1>
-            <h2>Jobs :</h2>
+            <h2>Brief</h2>
+            <p>{ project.shortDescription }</p>
             <ul>
                 { project.jobs.map(job => (<li key={ job.id }>{ job.name }</li>))}
             </ul>
+            <div className='input-container'>
+                <button onClick={showApplicationProcess}>
+                    Candidater pour ce challenge
+                </button>
+            </div>
+            <div>
+                <div>    
+                    <h2>Le challenge</h2>
+                    <ul>
+                        {
+                            project.tags.map((tag, i) => (
+                                <li key={i}>{ tag }</li>
+                            ))
+                        }
+                    </ul>
+                    <p>{ project.description }</p>
+                </div>
+                <div>    
+                    <h2>{ project.company.name }</h2>
+                    <ul>
+                        {
+                            project.company.tags.map((tag, i) => (
+                                <li key={i}>{ tag }</li>
+                            ))
+                        }
+                    </ul>
+                    <p>{ project.company.description }</p>
+                </div>
+            </div>
+            <div>
+                <p>{ project.company.quote }</p>
+                <span>{ project.company.quoteAuthor }</span>
+            </div>
+            <div className="input-container">
+                <button onClick={showApplicationProcess}>Candidater pour ce challenge</button>
+            </div>
             {
-                isLoading ?
-                    (<div>Loading...</div>)
-                    :
-                !hasApplied ? (        
-                    <form onSubmit={(e) => {e.preventDefault()}}>
-                        <select id="" onChange={(e) => {setSelectedJob(e.target.value)}} value={selectedJob}>
-                            <option value="">Choisir</option>
-                            {
-                                project.jobs.map(job => (<option key={job.id} value={job.id}>{ job.name }</option>))
-                            }
-                        </select>
-                        <input type="number" name="" id="" value={ dailyRate } onChange={ (e) => {setDailyRate(e.target.value)} }/>
-                        <input type="number" name="" id="" value={ daysNumber } onChange={ (e) => {setDaysNumber(e.target.value)} }/>
-                        <Button handleClick={ apply } button={ { text: "Apply" } } />
-                    </form>
-                ) : (
+                showApplication ? (
                     <>
-                        <h2>L'équipe</h2>
-                        <ul>
-                            {
-                                project.jobs.map(job => (
-                                    <li key={ job.id }>
-                                        <span>{ job.name }</span> - <span>{ jobsRecommendations[job.name]?.username }</span>
-                                        {jobsRecommendations[job.name] ? '' : (<Button handleClick={() => startRecommendation(job)} button={{text: "I know someone"}} />)}
-                                    </li>
-                                ))
-                            }
-                        </ul>
+                        {
+                            isLoading ?
+                                (<div>Loading...</div>)
+                                :
+                            !hasApplied ? (        
+                                <form onSubmit={(e) => {e.preventDefault()}}>
+                                    <select id="" onChange={(e) => {setSelectedJob(e.target.value)}} value={selectedJob}>
+                                        <option value="">Choisir</option>
+                                        {
+                                            project.jobs.map(job => (<option key={job.id} value={job.id}>{ job.name }</option>))
+                                        }
+                                    </select>
+                                    <input type="number" name="" id="" value={ dailyRate } onChange={ (e) => {setDailyRate(e.target.value)} }/>
+                                    <input type="number" name="" id="" value={ daysNumber } onChange={ (e) => {setDaysNumber(e.target.value)} }/>
+                                    <Button handleClick={ apply } button={ { text: "Apply" } } />
+                                </form>
+                            ) : (
+                                <>
+                                    <h2>L'équipe</h2>
+                                    <ul>
+                                        {
+                                            project.jobs.map(job => (
+                                                <li key={ job.id }>
+                                                    <span>{ job.name }</span> - <span>{ jobsRecommendations[job.name]?.username }</span>
+                                                    {jobsRecommendations[job.name] ? '' : (<Button handleClick={() => startRecommendation(job)} button={{text: "I know someone"}} />)}
+                                                </li>
+                                            ))
+                                        }
+                                    </ul>
+                                </>
+                            )
+                        }
+                        {
+                            showNetwork ? (
+                                <form onSubmit={(e) => {e.preventDefault()}}>
+                                    <h2>Network</h2>
+                                    <select value={ selectedFriendId } onChange={ (e) => { setSelectedFriendId(e.target.value) }}>
+                                            <option value="">Choose from your network</option>
+                                        { user.friends.map(friend => <option value={friend.id} key={ friend.id }>{ friend.username }</option>)}
+                                    </select>
+                                    <Button handleClick={  recommend } button={ { text: "Recommend" } } />
+                                </form>
+                            ) : ''
+                        }
                     </>
-                )
-            }
-            {
-                showNetwork ? (
-                    <form onSubmit={(e) => {e.preventDefault()}}>
-                        <h2>Network</h2>
-                        <select value={ selectedFriendId } onChange={ (e) => { setSelectedFriendId(e.target.value) }}>
-                                <option value="">Choose from your network</option>
-                            { user.friends.map(friend => <option value={friend.id} key={ friend.id }>{ friend.username }</option>)}
-                        </select>
-                        <Button handleClick={  recommend } button={ { text: "Recommend" } } />
-                    </form>
                 ) : ''
             }
-        </>
+        </div>
     ) : (<div>Loading...</div>)
 }
 
