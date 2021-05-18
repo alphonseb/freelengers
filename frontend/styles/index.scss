@@ -1,7 +1,17 @@
 @import "dir.scss";
 
+*,*::before,*::after {
+  box-sizing: border-box;
+}
+
 html {
   font-family: "nunito-sans";
   color: $neutral-1;
 }
 
+.layout {
+  max-width: 1440px; 
+  margin: 0 auto;
+  padding-left: 80px;
+  padding-right: 80px;
+}

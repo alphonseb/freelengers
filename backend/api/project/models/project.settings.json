@@ -29,9 +29,6 @@
     "selectedTeam": {
       "model": "team"
     },
-    "company": {
-      "model": "company"
-    },
     "description": {
       "type": "text"
     },
@@ -40,6 +37,10 @@
     },
     "shortDescription": {
       "type": "text"
+    },
+    "company": {
+      "via": "projects",
+      "model": "company"
     }
   }
 }

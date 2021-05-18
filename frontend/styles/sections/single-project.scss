@@ -1,0 +1,150 @@
+.single-project {
+    padding-top: 80px;
+    background-color: #FFFDF8;
+    
+    .paragraph {
+        opacity: 0.72;
+    }
+    
+    h2 {
+        margin: 0;
+        margin-bottom: 8px;
+    }
+    
+    &__go-back {
+        text-transform: uppercase;
+        color: $secondary-1;
+        display: flex;
+        align-items: center;
+        
+        svg path{
+            stroke: $secondary-1;
+        }
+    }
+    
+    &__overview {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding-bottom: 48px;
+        
+        h1 {
+            margin: 0;
+            margin-bottom: 32px;
+        }
+        
+        & > div {
+            width: 45%;
+        }
+    }
+    
+    &__jobs {
+        border-radius: 16px;
+        overflow: hidden;
+        margin-bottom: 32px;
+        
+        li {
+            background-color: $neutral-5;
+            padding: 32px;
+            position: relative;
+            font-weight: bold;
+            
+            span:first-child {
+                margin-right: 56px;
+            }
+            
+            &::after {
+                content: '';
+                position: absolute;
+                top: 100%;
+                left: 32px;
+                background-color: #26312A;
+                width: calc(100% - 64px);
+                height: 1px;
+                z-index: 3;
+                opacity: 0.08;
+            }
+        }
+    }
+    
+    &__tag-wrapper {
+        display: flex;
+        margin-bottom: 16px;
+    }
+    
+    &__tag {
+        display: inline-block;
+        padding: 8px 16px;
+        @include subTitle("nunito-sans-bold");
+        color: $neutral-2;
+        background-color: $neutral-5;
+        border-radius: 80px;
+        
+        &:not(:last-child) {
+            margin-right: 8px;
+        }
+    }
+    
+    &__details-wrapper {
+        background-color: $white;
+        padding: 48px 0;
+    }
+    
+    &__details {
+        display: flex;
+        justify-content: space-between;
+        
+        & > div {
+            width: 45%;
+        }
+    }
+    
+    &__quote {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding-top: 120px;
+        padding-bottom: 120px;
+        
+        p {
+            @include font-size(32px);
+            color: $neutral-1;
+            max-width: 846px;
+            margin-bottom: 40px;
+            font-family: "monarcha-bold";
+            line-height: 120%;
+        }
+        
+        span {
+            color: $secondary-1;
+        }
+    }
+    
+    &__company-infos {
+        margin-top: 16px;
+    }
+    
+    &__company-single-info {
+        color: $neutral-1;
+        opacity: 1!important;
+        
+        &:not(:first-child) {
+            padding-left: 32px;
+            position: relative;
+            
+            &::before {
+                content: '|';
+                position: absolute;
+                bottom: 0;
+                left: 16px;
+            }
+        }
+    }
+    
+    &__cta {
+        max-width: 522px;
+        margin: 0 auto;
+        padding-bottom: 48px;
+    }
+}

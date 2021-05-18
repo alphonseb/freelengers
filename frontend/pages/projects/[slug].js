@@ -3,6 +3,9 @@ import { fetchAPI } from 'utils/api'
 import { useRouter } from 'next/router'
 import Button from 'components/elements/button'
 import AppContext from 'context/AppContext'
+import ActiveLink from '@/components/01-atoms/ActiveLink'
+
+import ArrowRight from '../../src/assets/icons/arrow-right.svg'
 
 export default function SingleProject () {
     const { user } = useContext(AppContext)
@@ -93,48 +96,71 @@ export default function SingleProject () {
     }
     
     return (project.name && user) ? (
-        <div style={{paddingTop: 48}}>
-            <h1>{ project.name }</h1>
-            <h2>Brief</h2>
-            <p>{ project.shortDescription }</p>
-            <ul>
-                { project.jobs.map(job => (<li key={ job.id }>{ job.name }</li>))}
-            </ul>
-            <div className='input-container'>
-                <button onClick={showApplicationProcess}>
+        <div className="single-project">
+            <div className="layout">
+                <ActiveLink href="/projects" className="single-project__go-back accent">
+                    <ArrowRight style={{transform: 'rotate(180deg)', marginRight: 16}} /> Go back to missions
+                </ActiveLink>
+                <div className="single-project__overview">
+                    <div className="single-project__overview-left">
+                        <h1>{ project.name }</h1>
+                        <h2>Brief</h2>
+                        <p className="paragraph">{ project.shortDescription }</p>
+                    </div>
+                    <div className="single-project__overview-right">
+                        <ul className="single-project__jobs">
+                            { project.jobs.map(job => (<li key={ job.id }><span>1x</span><span>{ job.name }</span></li>))}
+                        </ul>
+                        <button className="btn-primary" onClick={showApplicationProcess}>
+                            Candidater pour ce challenge
+                            <ArrowRight />
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div className="single-project__details-wrapper">
+                <div className="layout single-project__details">
+                    <div>    
+                        <h2>Le challenge</h2>
+                        <ul className="single-project__tag-wrapper">
+                            {
+                                project.tags.map((tag, i) => (
+                                    <li key={i} className="single-project__tag">{ tag }</li>
+                                ))
+                            }
+                        </ul>
+                        <p className="paragraph">{ project.description }</p>
+                    </div>
+                    <div>    
+                        <h2>{ project.company.name }</h2>
+                        <ul className="single-project__tag-wrapper">
+                            {
+                                project.company.tags.map((tag, i) => (
+                                    <li key={i} className="single-project__tag">{ tag }</li>
+                                ))
+                            }
+                        </ul>
+                        <p className="paragraph">{ project.company.description }</p>
+                        <div className="single-project__company-infos">
+                            <span className="paragraph single-project__company-single-info">
+                                Créée en {project.company.creationYear}
+                            </span>
+                            <span className="paragraph single-project__company-single-info">
+                                {project.company.employeeNumber} employés
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="single-project__quote layout">
+                <p>"{ project.company.quote }"</p>
+                <span className="paragraph">{ project.company.quoteAuthor }</span>
+            </div>
+            <div className="single-project__cta">
+                <button className="btn-primary" onClick={ showApplicationProcess }>
                     Candidater pour ce challenge
+                    <ArrowRight />
                 </button>
-            </div>
-            <div>
-                <div>    
-                    <h2>Le challenge</h2>
-                    <ul>
-                        {
-                            project.tags.map((tag, i) => (
-                                <li key={i}>{ tag }</li>
-                            ))
-                        }
-                    </ul>
-                    <p>{ project.description }</p>
-                </div>
-                <div>    
-                    <h2>{ project.company.name }</h2>
-                    <ul>
-                        {
-                            project.company.tags.map((tag, i) => (
-                                <li key={i}>{ tag }</li>
-                            ))
-                        }
-                    </ul>
-                    <p>{ project.company.description }</p>
-                </div>
-            </div>
-            <div>
-                <p>{ project.company.quote }</p>
-                <span>{ project.company.quoteAuthor }</span>
-            </div>
-            <div className="input-container">
-                <button onClick={showApplicationProcess}>Candidater pour ce challenge</button>
             </div>
             {
                 showApplication ? (
