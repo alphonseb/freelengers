@@ -48,7 +48,7 @@ export async function getStaticProps({ params, preview = null }) {
   // Find the page data for the current slug
   let chainedSlugs;
   if (params == {} || !params.slug) {
-    chainedSlugs = 'home';
+    chainedSlugs = '';
   } else {
     // Otherwise find a page with a matching slug
     // Recompose the slug that was saved in Strapi
