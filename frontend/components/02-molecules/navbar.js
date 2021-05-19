@@ -23,7 +23,7 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link href='/network'>
+              <Link href='/user/network'>
                 <a className=''>Mon réseau</a>
               </Link>
             </li>
