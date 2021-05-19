@@ -32,10 +32,16 @@ const Navbar = () => {
                 <a className=''>Mes recommendations</a>
               </Link>
             </li>
-            <li>
+            <li className="user">
+              <span className="paragraph">
+                { user.firstName } { user.lastName }
+              </span>
+              <span className="accent">
+                { user.username }
+              </span>
               <Link href='/'>
                 <a
-                  className=''
+                  className='logout'
                   onClick={ () => {
                     logout();
                     setUser(null);
