@@ -123,8 +123,7 @@ const Register = ({ data }) => {
         <>
           <div className='main-container-register'>
             <div className='register-image'>
-              <img src='/images/saly-1.png' alt='freelancer illustration' />
-              <img src='/images/saly-2.png' alt='' />
+              <img src='/images/register.png' alt='freelancer illustration' />
             </div>
             <div className='register-form'>
               <h1>Rejoindre Freelengers</h1>

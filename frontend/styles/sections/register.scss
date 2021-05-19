@@ -5,15 +5,15 @@
   height: 100vh;
 
   .register-image {
-    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: $secondary-3;
+    position: relative;
+    overflow: hidden;
     img {
+      max-width: 650px;
       position: absolute;
-      bottom: 0;
-      right: 0;
-    }
-    :nth-last-child(1) {
-      right: -59px;
     }
   }
   .register-form {
