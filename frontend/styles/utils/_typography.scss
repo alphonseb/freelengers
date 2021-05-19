@@ -42,10 +42,11 @@ h3 {
 
 .paragraph {
   @include paragraph("nunito-sans");
+  line-height: 160%;
 }
 
 .accent {
-  @include paragraph("nunito-sans-bold")
+  @include paragraph("nunito-sans-bold");
 }
 
 @mixin typography($font, $size) {
