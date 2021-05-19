@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { registerUser } from "../../lib/auth";
 import AppContext from "../../context/AppContext";
 import { fetchAPI } from "utils/api";
@@ -7,7 +7,7 @@ import Router from "next/router";
 import ActiveLink from "../01-atoms/ActiveLink";
 
 import ArrowRight from "../../src/assets/icons/arrow-right.svg";
-import Button from "../elements/button";
+import Delete from "../../src/assets/icons/delete.svg";
 
 const Register = ({ data }) => {
   const [newUser, setNewUser] = useState({
@@ -26,7 +26,7 @@ const Register = ({ data }) => {
 
   const [selectedJobs, setSelectedJobs] = useState([]);
 
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(2);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({});
@@ -49,9 +49,9 @@ const Register = ({ data }) => {
         body: JSON.stringify(names),
       });
       const jobs = await fetchAPI(`/jobs`);
-      setAvailableJobs(jobs);
       appContext.setUser(user);
       setLoading(false);
+      setAvailableJobs(jobs);
       setStep(2);
     } catch (error) {
       setError(error);
@@ -121,13 +121,15 @@ const Register = ({ data }) => {
       {step === 1 ? (
         <>
           <div className='main-container-register'>
-            <h1>Rejoindre Freelengers</h1>
-            <div className='register-background'></div>
+            <div className='register-image'>
+              <img src='/images/saly-1.png' alt='freelancer illustration' />
+              <img src='/images/saly-2.png' alt='' />
+            </div>
             <div className='register-form'>
               <h1>Rejoindre Freelengers</h1>
               <p className='paragraph'>
                 Vous faites déjà parti de notre communauté ?&ensp;
-                <ActiveLink href={"/register"} className='accent'>
+                <ActiveLink href={"/login"} className='accent'>
                   Connectez-vous
                 </ActiveLink>
               </p>
@@ -151,31 +153,33 @@ const Register = ({ data }) => {
                 }}
               >
                 <fieldset disabled={loading}>
-                  <div className='input-container'>
-                    <label className='subtitle'>Prénom</label>
-                    <input
-                      type='text'
-                      name='firstName'
-                      disabled={loading}
-                      onChange={(e) =>
-                        setNames({ ...names, firstName: e.target.value })
-                      }
-                      value={names.firstName}
-                      placeholder='Clark'
-                    />
-                  </div>
-                  <div className='input-container'>
-                    <label className='subtitle'>Nom</label>
-                    <input
-                      type='text'
-                      name='lastName'
-                      disabled={loading}
-                      onChange={(e) =>
-                        setNames({ ...names, lastName: e.target.value })
-                      }
-                      value={names.lastName}
-                      placeholder='Kent'
-                    />
+                  <div className='input-grid-2'>
+                    <div className='input-container'>
+                      <label className='subtitle'>Prénom</label>
+                      <input
+                        type='text'
+                        name='firstName'
+                        disabled={loading}
+                        onChange={(e) =>
+                          setNames({ ...names, firstName: e.target.value })
+                        }
+                        value={names.firstName}
+                        placeholder='Clark'
+                      />
+                    </div>
+                    <div className='input-container'>
+                      <label className='subtitle'>Nom</label>
+                      <input
+                        type='text'
+                        name='lastName'
+                        disabled={loading}
+                        onChange={(e) =>
+                          setNames({ ...names, lastName: e.target.value })
+                        }
+                        value={names.lastName}
+                        placeholder='Kent'
+                      />
+                    </div>
                   </div>
                   <div className='input-container'>
                     <label className='subtitle'>Email</label>
@@ -227,14 +231,11 @@ const Register = ({ data }) => {
                   <div className='input-container'>
                     <input
                       type='submit'
-                      value={loading ? "Chargement.." : "Je suis input submit"}
+                      value={loading ? "Chargement.." : "Créer un compte"}
                       disabled={loading}
                       onClick={handleRegister}
                     />
                     <ArrowRight />
-                    <button className='btn-primary' onClick={() => null}>
-                      Je suis button <ArrowRight />
-                    </button>
                   </div>
                 </fieldset>
               </form>
@@ -242,79 +243,110 @@ const Register = ({ data }) => {
           </div>
         </>
       ) : (
-        <div>
-          <h2>Que faites-vous ?</h2>
-          <input
-            type='search'
-            value={searchedJob}
-            onChange={(e) => {
-              setSearchedJob(e.target.value);
-            }}
-          />
-          <ul>
-            {availableJobs.filter((job) =>
-              job.name.toLowerCase().includes(searchedJob.toLowerCase())
-            ).length ? (
-              availableJobs
-                .filter((job) =>
-                  searchedJob
-                    ? job.name.toLowerCase().includes(searchedJob.toLowerCase())
-                    : job
-                )
-                .map((job) => (
-                  <li key={job.id}>
-                    <span>{job.name}</span>
-                    <Button
-                      disabled={
-                        selectedJobs.length === 3 ||
-                        selectedJobs.find((_job) => _job.job.name === job.name)
-                      }
-                      button={{ text: "Sélectionner" }}
-                      handleClick={() => {
-                        selectJob(job);
-                      }}
-                    />
-                  </li>
-                ))
-            ) : (
-              <>
-                {searchedJob ? (
-                  <li>
-                    <span>{searchedJob}</span>
-                    <Button
-                      disabled={
-                        selectedJobs.length === 3 ||
-                        selectedJobs.find((job) => job.job.name === searchedJob)
-                      }
-                      button={{ text: "Sélectionner" }}
-                      handleClick={selectJob}
-                    />
-                  </li>
-                ) : (
-                  ""
-                )}
-              </>
-            )}
-          </ul>
-          <h3>Mes métiers</h3>
-          <ol>
-            {selectedJobs.map((job, i) => (
-              <li key={i}>
-                <span>{job.job.name}</span>
-                <Button
-                  button={{ text: "Retirer" }}
-                  handleClick={() => {
-                    removeJob(job);
+        <div className='main-container-jobs-selection'>
+          <div className='jobs-selection'>
+            <h1>Que faites-vous ?</h1>
+            <p className='paragraph'>
+              Votre inscription est presque terminée, nous avons besoin de
+              quelques informations sur vous.
+            </p>
+            <div className='jobs-selection-filter'>
+              <div className='input-container'>
+                <input
+                  type='search'
+                  value={searchedJob}
+                  onChange={(e) => {
+                    setSearchedJob(e.target.value);
                   }}
+                  placeholder='Rechercher une profession'
                 />
-              </li>
-            ))}
-          </ol>
-          <Button
-            disabled={selectedJobs.length < 3}
-            button={{ text: "Valider" }}
-            handleClick={sendJobs}
-          />
+              </div>
+              <ul>
+                {availableJobs.filter((job) =>
+                  job.name.toLowerCase().includes(searchedJob.toLowerCase())
+                ).length ? (
+                  availableJobs
+                    .filter((job) =>
+                      searchedJob
+                        ? job.name
+                            .toLowerCase()
+                            .includes(searchedJob.toLowerCase())
+                        : job
+                    )
+                    .map((job) => (
+                      <li key={job.id}>
+                        <button
+                          className='btn-secondary'
+                          disabled={
+                            selectedJobs.length === 3 ||
+                            selectedJobs.find(
+                              (_job) => _job.job.name === job.name
+                            )
+                          }
+                          onClick={() => {
+                            selectJob(job);
+                          }}
+                        >
+                          {job.name}
+                        </button>
+                      </li>
+                    ))
+                ) : (
+                  <>
+                    {searchedJob ? (
+                      <li>
+                        <span>{searchedJob}</span>
+                        <button
+                          disabled={
+                            selectedJobs.length === 3 ||
+                            selectedJobs.find(
+                              (job) => job.job.name === searchedJob
+                            )
+                          }
+                          onClick={selectJob}
+                        >
+                          Sélectionner
+                        </button>
+                      </li>
+                    ) : (
+                      ""
+                    )}
+                  </>
+                )}
+              </ul>
+            </div>
+          </div>
+          <div className='my-jobs-selection'>
+            <h1>&ensp;</h1>
+            <p className='paragraph'>
+              Trier vos professions en fonction de vos activités principales et
+              secondaires.
+            </p>
+            <ol>
+              {selectedJobs.map((job, i) => (
+                <li key={i}>
+                  <button
+                    className='btn-secondary'
+                    onClick={() => {
+                      removeJob(job);
+                    }}
+                  >
+                    <span>{i + 1}</span>
+                    {job.job.name}
+                    <Delete />
+                  </button>
+                </li>
+              ))}
+            </ol>
+            <button
+              disabled={selectedJobs.length < 3}
+              onClick={sendJobs}
+              className='btn-primary'
+            >
+              Valider
+              <ArrowRight />
+            </button>
+          </div>
         </div>
       )}
     </section>

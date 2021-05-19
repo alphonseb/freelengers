@@ -36,6 +36,7 @@ const Layout = ({ children, global }) => {
                 logout();
                 setUser(null);
               }}
+              style={{ position: 'absolute', top: 0 }}
             >
               Logout
             </a>
