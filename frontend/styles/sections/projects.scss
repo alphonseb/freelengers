@@ -23,6 +23,11 @@
       padding: 0 12vh;
       margin-bottom: 16px;
     }
+    
+    .project h2 {
+      max-width: 50%;
+    }
+    
     .project {
       background-color: $neutral-5;
       padding: 36px 12vh;
@@ -40,9 +45,13 @@
       ul {
         display: flex;
         margin: 16px 0;
+        
         li {
-          margin-right: 16px;
           color: $secondary-1;
+          
+          &:not(:last-child) {
+            margin-right: 16px;
+          }
         }
       }
       button {
@@ -77,9 +86,14 @@
       ul {
         display: flex;
         margin: 16px 0;
+        flex-wrap: wrap;
+        row-gap: 8px;
         li {
-          margin-right: 16px;
           color: $neutral-1;
+          
+          &:not(:last-child) {
+            margin-right: 16px;
+          }
           @include typography("nunito-sans-semi-bold", 18px);
           span {
             color: $neutral-2;
