@@ -6,6 +6,7 @@ import AppContext from 'context/AppContext'
 import ActiveLink from '@/components/01-atoms/ActiveLink'
 
 import ArrowRight from '../../src/assets/icons/arrow-right.svg'
+import Check from '../../src/assets/icons/check.svg'
 
 export default function SingleProject () {
     const { user } = useContext(AppContext)
@@ -67,7 +68,7 @@ export default function SingleProject () {
     }
     
     const startRecommendation = (job) => {
-        setRecommendingFor(job.id)
+        setRecommendingFor(job)
         setShowNetwork(true)
     }
     
@@ -76,7 +77,7 @@ export default function SingleProject () {
             recommender: user.id,
             recommendee: selectedFriendId,
             project: project.id,
-            job: recommendingFor
+            job: recommendingFor.id
         }
         
         const applicationBody = {
@@ -92,7 +93,13 @@ export default function SingleProject () {
     }
     
     const showApplicationProcess = () => {
+        document.body.style.overflow = "hidden"
         setShowApplication(true)
+    }
+    
+    const hideApplicationProcess = () => {
+        document.body.style.overflow = "initial"
+        setShowApplication(false)
     }
     
     return (project.name && user) ? (
@@ -111,8 +118,10 @@ export default function SingleProject () {
                         <ul className="single-project__jobs">
                             { project.jobs.map(job => (<li key={ job.id }><span>1x</span><span>{ job.name }</span></li>))}
                         </ul>
-                        <button className="btn-primary" onClick={showApplicationProcess}>
-                            Candidater pour ce challenge
+                        <button className="btn-primary" onClick={ showApplicationProcess }>
+                            {
+                                hasApplied ? 'Ma candidature' : 'Candidater pour ce challenge'
+                            }
                             <ArrowRight />
                         </button>
                     </div>
@@ -158,58 +167,150 @@ export default function SingleProject () {
             </div>
             <div className="single-project__cta">
                 <button className="btn-primary" onClick={ showApplicationProcess }>
-                    Candidater pour ce challenge
+                    {
+                        hasApplied ? 'Ma candidature' : 'Candidater pour ce challenge'
+                    }
                     <ArrowRight />
                 </button>
             </div>
             {
                 showApplication ? (
-                    <>
-                        {
-                            isLoading ?
-                                (<div>Loading...</div>)
-                                :
-                            !hasApplied ? (        
-                                <form onSubmit={(e) => {e.preventDefault()}}>
-                                    <select id="" onChange={(e) => {setSelectedJob(e.target.value)}} value={selectedJob}>
-                                        <option value="">Choisir</option>
+                    <div className="single-project__pop-up-wrapper">
+                        <div className="single-project__pop-up application">
+                            
+                            {
+                                isLoading ?
+                                    (<div>Loading...</div>)
+                                    :
+                                !hasApplied ? (
+                                    <>
+                                        <h2>Ma candidature</h2>
+                                        <p className="paragraph application__sentence">
+                                            Ceci est votre candidature personnelle, vous pourrez recommander des profils pour compléter l’équipe par la suite.
+                                        </p>      
+                                        <form onSubmit={(e) => {e.preventDefault()}}>
+                                            <div className="application__fields">
+                                                <p>
+                                                        Je candidate en tant que { ' ' }
+                                                        <span className="application__input">
+                                                            <select id="" onChange={(e) => {setSelectedJob(e.target.value)}} value={selectedJob} >
+                                                                <option value="">Choisir</option>
+                                                                {
+                                                                    project.jobs.map(job => (<option key={job.id} value={job.id}>{ job.name }</option>))
+                                                                }
+                                                            </select>
+                                                        </span>
+                                                    </p>
+                                                    <p>
+                                                        Mon tarif est de { ' ' }
+                                                        <span className="application__input">
+                                                            <input type="number" name="" id="" value={ dailyRate } onChange={ (e) => { setDailyRate(e.target.value) } } />
+                                                            { ' ' }€ / jour
+                                                        </span>
+                                                    </p>
+                                                    <p>
+                                                        J'estime à {' '}
+                                                        <span className="application__input">
+                                                            <input type="number" name="" id="" value={ daysNumber } onChange={ (e) => { setDaysNumber(e.target.value) } } />
+                                                            { ' ' }jours
+                                                        </span>
+                                                        {' '} de travail cette mission.
+                                                    </p>
+                                            </div>
+                                            <div className="application__form-buttons">
+                                                <button className="application__cancel" onClick={hideApplicationProcess}>
+                                                        Annuler
+                                                </button>
+                                                <button className="btn-primary" onClick={ apply }>
+                                                    Envoyer ma candidature
+                                                    <ArrowRight />
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </>
+                                ) : (
+                                    <>
                                         {
-                                            project.jobs.map(job => (<option key={job.id} value={job.id}>{ job.name }</option>))
+                                            !showNetwork ? (
+                                                <>
+                                                    <h2>L'équipe</h2>
+                                                    <p className="paragraph application__sentence">
+                                                        Nos algorithmes privilégient des équipes de Freelances qui savent travailler ensemble.<br/>Recommandez votre équipe pour augmenter vos chances d’être sélectionné.
+                                                    </p>
+                                                    <ul className="application__recommendation-job-wrapper">
+                                                        {
+                                                            project.jobs.map(job => (
+                                                                <li key={ job.id } className="application__recommendation-job">
+                                                                    <div className={jobsRecommendations[job.name] ? 'has-line' : ''}>
+                                                                        <div>
+                                                                            <span>1/1</span><span>{ job.name }</span>
+                                                                        </div>
+                                                                        {
+                                                                            !jobsRecommendations[job.name] ? (
+                                                                                <button className="application__recommendation-button" onClick={ () => startRecommendation(job) }>
+                                                                                    Je connais quelqu'un
+                                                                                    <ArrowRight />
+                                                                                </button>
+                                                                            ) : ''
+                                                                        }
+                                                                    </div>
+                                                                    {
+                                                                        jobsRecommendations[job.name] ? (
+                                                                            <p><span>{ jobsRecommendations[job.name]?.firstName } { jobsRecommendations[job.name]?.lastName }</span><span className="details">{ jobsRecommendations[job.name].id === user.id ? 'Moi' : 'Recommandé(e)' }</span></p>
+                                                                        ) : ''
+                                                                    }
+                                                                </li>
+                                                            ))
+                                                        }
+                                                    </ul>
+                                                    <div className="application__form-buttons">
+                                                        <button className="application__cancel" onClick={hideApplicationProcess}>
+                                                            Quitter
+                                                        </button>
+                                                        <button className="btn-primary" onClick={hideApplicationProcess}>
+                                                            Sauvegarder et quitter
+                                                            <Check />
+                                                        </button>
+                                                    </div>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <h2>Je recommande</h2>
+                                                    <p className="application__job-recommendation">
+                                                        Je recommande pour le poste de <span>{ recommendingFor.name }</span>
+                                                    </p>
+                                                    <div className="application__network">
+                                                        <ul>
+                                                            { user.friends.map(friend => (
+                                                                <li key={ friend.id } className={selectedFriendId === friend.id ? 'selected' : ''}>
+                                                                    <button onClick={ () => { setSelectedFriendId(friend.id) }}>
+                                                                        <span className="name">{ friend.firstName } {friend.lastName }</span>
+                                                                        <span className="jobs">
+                                                                            <span>{ friend.job_1.name }</span><span>{ friend.job_2.name }</span><span>{ friend.job_3.name }</span>
+                                                                        </span>
+                                                                    </button>
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    </div>
+                                                    <div className="application__form-buttons">
+                                                        <button className="application__cancel" onClick={() => {setShowNetwork(false)}}>
+                                                            Annuler
+                                                        </button>
+                                                        <button className="btn-primary" onClick={recommend}>
+                                                            Confirmer la sélection
+                                                            <Check />
+                                                        </button>
+                                                    </div>
+                                                </>
+                                            )
                                         }
-                                    </select>
-                                    <input type="number" name="" id="" value={ dailyRate } onChange={ (e) => {setDailyRate(e.target.value)} }/>
-                                    <input type="number" name="" id="" value={ daysNumber } onChange={ (e) => {setDaysNumber(e.target.value)} }/>
-                                    <Button handleClick={ apply } button={ { text: "Apply" } } />
-                                </form>
-                            ) : (
-                                <>
-                                    <h2>L'équipe</h2>
-                                    <ul>
-                                        {
-                                            project.jobs.map(job => (
-                                                <li key={ job.id }>
-                                                    <span>{ job.name }</span> - <span>{ jobsRecommendations[job.name]?.username }</span>
-                                                    {jobsRecommendations[job.name] ? '' : (<Button handleClick={() => startRecommendation(job)} button={{text: "I know someone"}} />)}
-                                                </li>
-                                            ))
-                                        }
-                                    </ul>
-                                </>
-                            )
-                        }
-                        {
-                            showNetwork ? (
-                                <form onSubmit={(e) => {e.preventDefault()}}>
-                                    <h2>Network</h2>
-                                    <select value={ selectedFriendId } onChange={ (e) => { setSelectedFriendId(e.target.value) }}>
-                                            <option value="">Choose from your network</option>
-                                        { user.friends.map(friend => <option value={friend.id} key={ friend.id }>{ friend.username }</option>)}
-                                    </select>
-                                    <Button handleClick={  recommend } button={ { text: "Recommend" } } />
-                                </form>
-                            ) : ''
-                        }
-                    </>
+                                    </>
+                                )
+                            }
+                            
+                        </div>
+                    </div>
                 ) : ''
             }
         </div>

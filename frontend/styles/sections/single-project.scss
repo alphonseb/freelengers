@@ -147,4 +147,224 @@
         margin: 0 auto;
         padding-bottom: 48px;
     }
+    
+    &__pop-up-wrapper {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 20;
+        
+        &::before {
+            content: '';
+            background-color: rgba($color: $neutral-1, $alpha: 0.4);
+            width: 100vw;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: -1;
+        }
+    }
+    
+    &__pop-up {
+        width: 55%;
+        background-color: $background-1;
+        height: 100vh;
+    }
+}
+
+.application {
+    padding: 56px 80px;
+    
+    h2 {
+        margin: 0;
+        margin-bottom: 16px;
+        @include typography("monarcha", 40px);
+    }
+    
+    &__sentence {
+        margin-bottom: 32px;
+        color: $neutral-2;
+        opacity: 1!important;
+    }
+    
+    &__fields {
+        padding: 16px 24px;
+        background-color: $neutral-5;
+        border-radius: 16px;
+        @include typography("nunito-sans", 24px);
+        margin-bottom: 32px;
+    }
+    
+    &__input {
+        display: inline-flex;
+        align-items: center;
+        background-color: $white;
+        padding: 8px 24px;
+        border-radius: 40px;
+        margin-bottom: 16px;
+        
+        select, input {
+            @include typography("nunito-sans-bold", 24px);
+            border: none;
+        }
+        
+        input[type="number"] {
+            width: 70px;
+        }
+    }
+    
+    &__form-buttons {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        
+        .btn-primary {
+            width: 60%;
+        }
+    }
+    
+    &__cancel {
+        display: inline-block;
+        font-weight: bold;
+        @include typography("nunito-sans-bold", 20px);
+        color: $neutral-2;
+        width: auto;
+        background: none;
+    }
+    
+    &__recommendation-job {
+        background-color: $neutral-5;
+        padding: 16px 32px;
+        border-radius: 16px;
+        font-weight: bold;
+        margin-bottom: 8px;
+        
+        & > div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            
+            &.has-line {
+                padding-top: 5px;
+                padding-bottom: 16px;
+                position: relative;
+                margin-bottom: 8px;
+                
+                &::after {
+                    content: '';
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    width: 100%;
+                    height: 1px;
+                    background-color: $neutral-4;
+                }
+            }
+            
+            & > div span:first-child {
+                margin-right: 16px;
+            }
+            
+        }
+        
+        & > p {
+            padding: 13px 0;
+            display: flex;
+            justify-content: space-between;
+            
+            .details {
+                color: $neutral-2;
+            } 
+        }
+    }
+    
+    &__recommendation-job-wrapper {
+        margin-bottom: 24px;
+    }
+    
+    &__recommendation-button {
+        display: inline-flex;
+        align-items: center;
+        width: auto;
+        background: none;
+        color: $secondary-1;
+        
+        svg {
+            position: static;
+            margin-left: 16px;
+            
+            path {
+                stroke: $secondary-1;
+            }
+        }
+    }
+    
+    &__job-recommendation {
+        @include typography('nunito-sans', 24px);
+        color: $neutral-1;
+        margin-bottom: 24px;
+        
+        span {
+            font-weight: bold;
+        }
+    }
+    
+    &__network {
+        margin-bottom: 24px;
+        background-color: $neutral-5;
+        border: solid 2px $neutral-4;
+        border-radius: 16px;
+        overflow: hidden;
+        
+        ul {
+            
+            li {
+                &:hover, &.selected {
+                    position: relative;
+                    
+                    .name {
+                        color: $secondary-1;
+                    }
+                    
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: 0px;
+                        width: 4px;
+                        height: 100%;
+                        background-color: $secondary-1;
+                    }
+                }
+                
+                .jobs {
+                    display: inline-grid;
+                    grid-template-columns: 1fr 1fr 1fr;
+                    column-gap: 8px;
+                    text-align: left;
+                    font-family: 'nunito-sans';
+                    
+                    span {
+                        color: $neutral-2;
+                        
+                        &:first-child {
+                            color: $neutral-1;
+                        }
+                    }
+                }
+                
+                button {
+                    background: none;
+                    border: none;
+                    padding: 13px 24px;
+                    border-radius: 0;
+                    display: inline-grid;
+                    grid-template-columns: 1fr 4fr;
+                    justify-content: space-between;
+                }
+            } 
+        }
+    }
 }
