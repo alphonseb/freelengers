@@ -25,6 +25,14 @@
       }
     },
     {
+      "method": "GET",
+      "path": "/teams/project/:slug",
+      "handler": "team.findByProject",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "POST",
       "path": "/teams",
       "handler": "team.create",
