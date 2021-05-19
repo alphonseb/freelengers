@@ -7,6 +7,7 @@ import Link from 'next/link'
 
 import ArrowRight from '../../src/assets/icons/arrow-right.svg'
 import Check from '../../src/assets/icons/check.svg'
+import Plus from '../../src/assets/icons/plus.svg'
 
 export default function SingleProject () {
     const { user } = useContext(AppContext)
@@ -14,10 +15,13 @@ export default function SingleProject () {
     const { slug, job: queryJob } = router.query
     const [isLoading, setIsLoading] = useState(true)
     const [project, setProject] = useState({})
+    const [questions, setQuestions] = useState([])
+
     useEffect(() => {
         async function fetchProject () {
             const project = await fetchAPI(`/projects/slug/${ slug }`)
             setProject(project)
+            setQuestions(project.questions)
             console.log(user, project);
             const application = await fetchAPI(`/applications/project/${ project.id }/user/${ user.id }`)
             const newRecommendations = {}
@@ -43,6 +47,8 @@ export default function SingleProject () {
     }, [user])
 
 
+    const [showAskQuestion, setShowAskQuestion] = useState(false)
+    const [typedQuestion, setTypedQuestion] = useState('')
 
     const [selectedJob, setSelectedJob] = useState(queryJob ? queryJob : '')
     const [dailyRate, setDailyRate] = useState(0)
@@ -100,6 +106,25 @@ export default function SingleProject () {
     const hideApplicationProcess = () => {
         document.body.style.overflow = ""
         setShowApplication(false)
+    }
+
+    const showQuestionProcess = () => {
+        document.body.style.overflow = "hidden"
+        setShowAskQuestion(true)
+    }
+
+    const hideQuestionProcess = () => {
+        document.body.style.overflow = ""
+        setShowAskQuestion(false)
+    }
+
+    const askQuestion = async () => {
+        const question = await fetchAPI('/questions', { method: 'POST', body: JSON.stringify({ question: typedQuestion, project: project.id }) })
+
+        if (question) {
+            setQuestions([...questions, question])
+            hideQuestionProcess()
+        }
     }
 
     return (project.name && user) ? (
@@ -175,6 +200,55 @@ export default function SingleProject () {
                     <ArrowRight />
                 </button>
             </div>
+            <div className="single-project__questions layout">
+                <div className="single-project__questions-header">
+                    <h2>Vous avez une question ?</h2>
+                    <button onClick={ showQuestionProcess }>
+                        Ajouter une question
+                        <Plus />
+                    </button>
+                </div>
+                <ul className="single-project__questions-list">
+                    {
+                        questions.length ? questions.reverse().map(question => (
+                            <li key={ question.id }>
+                                <div class="question">
+                                    <p className="paragraph">
+                                        { question.question }
+                                    </p>
+                                    <small>{ question.answer ? `✔ ${ project.company.name } a répondu` : `En attente d'une réponse de ${ project.company.name }` }</small>
+                                </div>
+                                {
+                                    question.answer ? (<p class="answer">➡ {question.answer } </p>) : ''
+                                }
+                            </li>
+                        )) : ''
+                    }
+                </ul>
+            </div>
+            {
+                showAskQuestion ? (
+                    <div className="single-project__pop-up-wrapper">
+                        <div className="single-project__pop-up single-project__questions-ask application">
+                            <h2>Poser une question</h2>
+                            <p className="paragraph">
+                                Vous pouvez poser une question au Client. Les autres Freelengers ont accès à vos questions et pourront voter si elles leurs ont été utile.
+                            </p>
+                            <label htmlFor="question" className="subtitle">Votre question</label>
+                            <textarea onChange={ (e) => { setTypedQuestion(e.target.value) } } value={ typedQuestion } id="question" cols="30" rows="10" placeholder="Poser votre question ici"></textarea>
+                            <div className="application__form-buttons">
+                                <button className="application__cancel" onClick={ hideQuestionProcess }>
+                                    Annuler
+                                </button>
+                                <button className="btn-primary" onClick={ askQuestion }>
+                                    Poser ma question
+                                    <ArrowRight />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                ) : ''
+            }
             {
                 showApplication ? (
                     <div className="single-project__pop-up-wrapper">

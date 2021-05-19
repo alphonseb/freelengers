@@ -41,6 +41,10 @@
     "company": {
       "via": "projects",
       "model": "company"
+    },
+    "questions": {
+      "via": "project",
+      "collection": "question"
     }
   }
 }

@@ -1,5 +1,5 @@
 .single-project {
-    padding-top: 80px;
+    padding-top: 160px;
     background-color: #FFFDF8;
     
     .paragraph {
@@ -148,7 +148,7 @@
         padding-bottom: 48px;
     }
     
-    &__pop-up-wrapper {
+    &__pop-up-wrapper, {
         position: fixed;
         top: 0;
         left: 0;
@@ -171,6 +171,93 @@
         width: 55%;
         background-color: $background-1;
         height: 100vh;
+    }
+    
+    &__questions {
+        padding: 24px 0px;
+        
+    }
+    
+    &__questions-header {
+        margin-bottom: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        
+        button {
+            width: 522px;
+            background: none;
+            border: solid 2px $secondary-3;
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }
+    
+    &__questions-list {
+        li {
+            &:not(:last-child) {
+                margin-bottom: 40px;
+            }
+            
+            .paragraph {
+                color: $neutral-1;
+                opacity: 1;
+                margin-bottom: 16px;
+            }
+            
+            small {
+                @include typography('nunito-sans', 16px);
+                color: $neutral-2;
+                display: block;
+            }
+            
+            .question {
+                position: relative;
+                padding: 8px 32px;
+                
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 2px;
+                    height: 100%;
+                    background-color: $secondary-1;
+                }
+            }
+            
+            .answer {
+                margin-top: 16px;
+                @include typography('nunito-sans', 18px);
+                padding: 8px 24px;
+                border-radius: 60px;
+                background-color: $neutral-5;
+                display: inline-block;
+            }
+        }
+    }
+    
+    &__questions-ask {
+        .paragraph {
+            margin-bottom: 24px;
+        }
+        
+        label {
+            display: block;
+            color: $neutral-1;
+            margin-bottom: 16px;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 24px 32px;
+            @include typography('nunito-sans', 20px);
+            border: none;
+            border-radius: 16px;
+            margin-bottom: 24px;
+        }
     }
 }
 
