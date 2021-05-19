@@ -15,7 +15,7 @@ export async function fetchAPI(path, options = {}) {
     },
   }
   const token = Cookie.get('token')
-  
+
   if (token) {
     defaultOptions.headers = {...defaultOptions.headers, 'Authorization': `Bearer ${token}`}
   }
@@ -25,7 +25,7 @@ export async function fetchAPI(path, options = {}) {
   }
   const requestUrl = getStrapiURL(path)
   const response = await fetch(requestUrl, mergedOptions)
-  console.log(response);
+
   if (!response.ok && response.status !== 404) {
     console.log(mergedOptions);
     console.log(requestUrl);
