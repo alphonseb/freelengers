@@ -16,16 +16,26 @@
     ul {
       display: flex;
       li {
+        cursor: pointer;
         @include typography("nunito-sans-semi-bold", 18px);
         color: $neutral-1;
         margin: 0 36px;
+        padding: 16px;
+        border-radius: 8px;
+        transition: ease-out 0.15s;
+        &:hover {
+          text-decoration: underline;
+        }
+        &.isSelected {
+          background-color: $secondary-3;
+          color: $secondary-1;
+        }
       }
     }
   }
   .my-network {
     display: flex;
     flex-direction: column;
-    align-items: center;
     width: 80%;
     height: 100%;
     background-color: $background-1;
@@ -56,6 +66,7 @@
       display: flex;
       flex-direction: column;
       width: 100%;
+      overflow: overlay;
       li {
         display: flex;
         align-items: center;
@@ -94,10 +105,21 @@
       }
       .remove {
         svg path {
-          stroke: $semantic-error-1
+          stroke: $semantic-error-1;
         }
       }
       .request-sent {
+        svg path {
+          stroke: $primary-1;
+        }
+      }
+      .pending-invit {
+        svg:nth-child(2) {
+          margin-right: 40px;
+          path {
+            stroke: $neutral-3;
+          }
+        }
         svg path {
           stroke: $primary-1;
         }
