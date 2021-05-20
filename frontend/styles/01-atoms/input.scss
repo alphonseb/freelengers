@@ -26,8 +26,18 @@
   }
   input[type="search"] {
     margin-bottom: 0;
+    + svg {
+      position: absolute;
+      cursor: pointer;
+      right: 32px;
+      top: 22px;
+      path {
+        stroke: $secondary-1;
+      }
+    }
   }
-  input[type="submit"], button {
+  input[type="submit"],
+  button {
     @include typography("nunito-sans-bold", 18px);
     background-color: $primary-1;
     color: $white;
@@ -84,4 +94,8 @@ input:-webkit-autofill:active {
     background: transparent;
     color: inherit;
   }
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+  display: none;
 }
