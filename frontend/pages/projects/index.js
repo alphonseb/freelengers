@@ -26,10 +26,8 @@ export default function Projects () {
                 <div className='hero-content'>
                     <h1>Trouvez les missions qui vous correspondent.</h1>
                     <p className='paragraph'>
-                        Concevoir une plateforme de mise en relation pour les particuliers
-                        et les artisans proche de chez eux. Que ce soit pour de la
-                        prestation d’urgence comme pour de la prestation de longue durée.
-          </p>
+                        Découvrez le panel de challenges qui vous sont proposés selon vos appétences et préférences. Renseignez vos différents champs d’informations pour affiner votre recherche et vos envies. Proposez ensuite une équipe avec qui vous aimeriez travailler !
+                    </p>
                 </div>
                 <div className='hero-image'>
                     <img src='/images/projects-illu.png' alt='' />
