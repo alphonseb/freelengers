@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@netlify/plugin-nextjs": "^3.3.0",
     "autoprefixer": "^9",
     "axios": "0.19.2",
     "classnames": "^2.2.6",
