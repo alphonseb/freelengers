@@ -1,7 +1,2 @@
-[build]
-  base = "frontend/"
-  command = "npm i && npm run build"
-  publish = "frontend/out"
-
 [[plugins]]
   package = "@netlify/plugin-nextjs"
