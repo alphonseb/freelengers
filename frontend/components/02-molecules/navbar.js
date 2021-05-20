@@ -9,13 +9,13 @@ const Navbar = () => {
 
   return (
     <>
-      {/* The actual navbar */}
+      {/* The actual navbar */ }
       <nav className='navbar-container'>
         <Link href='/[[...slug]]' as='/'>
           <a>Freelengers</a>
         </Link>
-        {/* List of links on desktop */}
-        {user ? (
+        {/* List of links on desktop */ }
+        { user ? (
           <ul className=''>
             <li>
               <Link href='/projects'>
@@ -28,13 +28,18 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
+              <Link href='/user/recommendations'>
+                <a className=''>Mes recommendations</a>
+              </Link>
+            </li>
+            <li>
               <Link href='/'>
                 <a
                   className=''
-                  onClick={() => {
+                  onClick={ () => {
                     logout();
                     setUser(null);
-                  }}
+                  } }
                 >
                   Se déconnecter
                 </a>
@@ -49,7 +54,7 @@ const Navbar = () => {
               </Link>
             </li>
           </ul>
-        )}
+        ) }
       </nav>
     </>
   );

@@ -11,7 +11,7 @@ import Check from '../../src/assets/icons/check.svg'
 export default function SingleProject () {
     const { user } = useContext(AppContext)
     const router = useRouter()
-    const { slug } = router.query
+    const { slug, job: queryJob } = router.query
     const [isLoading, setIsLoading] = useState(true)
     const [project, setProject] = useState({})
     useEffect(() => {
@@ -44,7 +44,7 @@ export default function SingleProject () {
 
 
 
-    const [selectedJob, setSelectedJob] = useState('')
+    const [selectedJob, setSelectedJob] = useState(queryJob ? queryJob : '')
     const [dailyRate, setDailyRate] = useState(0)
     const [daysNumber, setDaysNumber] = useState(0)
 
@@ -57,7 +57,7 @@ export default function SingleProject () {
     const [recommendingFor, setRecommendingFor] = useState('')
     const [selectedFriendId, setSelectedFriendId] = useState('')
 
-    const [showApplication, setShowApplication] = useState(false)
+    const [showApplication, setShowApplication] = useState(queryJob ? true : false)
 
     const apply = async () => {
         console.log(selectedJob, dailyRate, daysNumber);
