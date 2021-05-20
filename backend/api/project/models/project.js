@@ -5,16 +5,16 @@
  * to customize this model
  */
 
-function cartesian(args) {
-    var r = [], max = args.length-1;
-    function helper(arr, i) {
-        for (var j=0, l=args[i].length; j<l; j++) {
+function cartesian (args) {
+    var r = [], max = args.length - 1;
+    function helper (arr, i) {
+        for (var j = 0, l = args[i].length; j < l; j++) {
             var a = arr.slice(0); // clone arr
             a.push(args[i][j]);
-            if (i==max)
+            if (i == max)
                 r.push(a);
             else
-                helper(a, i+1);
+                helper(a, i + 1);
         }
     }
     helper([], 0);
@@ -40,7 +40,7 @@ async function createTeams (applications, project) {
                             return 0.33
                         default:
                             return 0
-                    }   
+                    }
                 })()
                 jobRatings += jobRating
                 freelanceRatings += application.user.freelanceRating
@@ -59,7 +59,7 @@ async function createTeams (applications, project) {
 
 
             const fullScore = (algo.chemistryCoeff * greenAvg + algo.freelanceRatingCoeff * freelanceRatingAvg + algo.clientRatingCoeff * clientRatingAvg + algo.jobCoeff * jobRatingAvg) / (algo.chemistryCoeff + algo.freelanceRatingCoeff + algo.clientRatingCoeff + algo.jobCoeff)
-            
+
             return {
                 applications: team.map(application => application.id),
                 project: project.id,
