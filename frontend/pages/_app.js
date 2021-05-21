@@ -60,7 +60,7 @@ const MyApp = ({ Component, pageProps }) => {
     >
       {/* Favicon */}
       <Head>
-        {/* <link rel="shortcut icon" href={getStrapiMedia(global.favicon.url)} /> */}
+        <link rel="shortcut icon" href={'images/favicon.png'} />
       </Head>
       {/* Global site metadata */}
       <DefaultSeo
