@@ -11,6 +11,7 @@
   ul {
     display: flex;
     flex-direction: row;
+    align-items: center;
     li {
       margin: 0 16px;
     }
@@ -18,5 +19,33 @@
   a {
     @include typography('monarcha', 18px);
     color: $neutral-1;
+  }
+  .user {
+    padding: 16px;
+    background-color: $neutral-5;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    transform: translateY(29%);
+    border: solid 2px $neutral-4;
+    
+    .accent {
+      font-size: 16px!important;
+      color: $secondary-1;
+    }
+    
+    .logout {
+      padding-top: 24px;
+      position: relative;
+      
+      &::before {
+        content: '';
+        position: absolute;
+        top: 8px;
+        height: 1px;
+        width: 100%;
+        background-color: $neutral-2;
+      }
+    }
   }
 }
