@@ -1,7 +1,0 @@
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
-  
-[[redirects]]
-  from = "/"
-  to = "https://freelengers.webflow.io/"
-  status = 301
